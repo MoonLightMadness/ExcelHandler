@@ -1,5 +1,7 @@
 package handler;
 
+import log.LogSystem;
+import log.LogSystemFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,8 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,7 @@ public class HighOrderExcel {
 
     private OPCPackage opcPackage;
 
+    private LogSystem log = LogSystemFactory.getLogSystem();
 
     public HighOrderExcel(Excel excel){
         try {
@@ -135,8 +137,76 @@ public class HighOrderExcel {
         return index;
     }
 
+    public void setCellValue(Cell cell,String value){
+        cell.setCellValue(value);
+    }
+
     public XSSFWorkbook getWorkbook() {
         return workbook;
+    }
+
+    /**
+     * 获得标题排的众标题的值
+     * @return @return {@link List<String> }
+     * @author zhl
+     * @date 2021-08-24 20:59
+     * @version V1.0
+     */
+    public List<String> getTopRowsValues(){
+        List<String> result = new ArrayList<>();
+        XSSFSheet sheet = workbook.getSheet(excel.getSheetName());
+        Row row = sheet.getRow(0);
+        Iterator<Cell> iterator = row.cellIterator();
+        while (iterator.hasNext()) {
+            Cell cell = iterator.next();
+            result.add(cell.getStringCellValue());
+        }
+        return result;
+    }
+
+    /**
+     * 获得标题排的众标题
+     * @return @return {@link List<Cell> }
+     * @author zhl
+     * @date 2021-08-24 21:00
+     * @version V1.0
+     */
+    public List<Cell> getTopRows(){
+        List<Cell> result = new ArrayList<>();
+        XSSFSheet sheet = workbook.getSheet(excel.getSheetName());
+        Row row = sheet.getRow(0);
+        Iterator<Cell> iterator = row.cellIterator();
+        while (iterator.hasNext()) {
+            Cell cell = iterator.next();
+            result.add(cell);
+        }
+        return result;
+    }
+
+    /**
+     * 注意不能写入原本文件，否则会报错并清空原本文件数据 <br/>
+     * 但实际上原本文件也会进行更改
+     * @param path 路径
+     * @return
+     * @author zhl
+     * @date 2021-08-24 18:30
+     * @version V1.0
+     */
+    public void save(String path){
+        //路径检测
+        if(path.equals(excel.getFilePath())){
+            log.error("不能与原本路径相同");
+            return;
+        }
+        try {
+            OutputStream os = new FileOutputStream(path);
+            workbook.write(os);
+            os.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void close(){
