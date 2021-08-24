@@ -1,6 +1,5 @@
 package grammar.syntax;
 
-import org.apache.xmlbeans.impl.regex.Match;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -99,6 +98,11 @@ public class Analyser {
                 "          property = value\n" +
                 "      }\n" +
                 "VAR ppp = aaa\n" +
+                "\n" +
+                "main{\n" +
+                " xxxx\n" +
+                "bbbb\n" +
+                "}\n" +
                 "     SYNTAX get_12 {\n" +
                 "          GET FILENAME.SHEETNAME\n" +
                 "          property\n" +
@@ -106,7 +110,7 @@ public class Analyser {
                 "         property = value\n" +
                 "          property = value\n" +
                 "      }\n" +
-                "VAR bb = cc ";
+                "VAR bb = cc\n";
         try {
             Matcher matcher = pattern.matcher(str);
             while (matcher.find()) {
