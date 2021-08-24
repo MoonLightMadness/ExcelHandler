@@ -41,7 +41,15 @@ public class HighOrderExcel {
         }
     }
 
-    public List<String> getColomnsValueByTopRowName(String rowName){
+    /**
+     * 通过给定的标题行名称，获取该列（不包括标题）所有的{@link Cell}的值
+     * @param rowName 行名称
+     * @return @return {@link List<String> }
+     * @author zhl
+     * @date 2021-08-24 16:53
+     * @version V1.0
+     */
+    public List<String> getColonmsValueByTopRowName(String rowName){
         List<String> result = new ArrayList<>();
         XSSFSheet sheet = workbook.getSheet(excel.getSheetName());
         //获取第一行
@@ -66,6 +74,65 @@ public class HighOrderExcel {
             return result;
         }
         return null;
+    }
+
+    /**
+     * 通过给定的标题行名称，获取该列（不包括标题）所有的{@link Cell}
+     * @param rowName 行名称
+     * @return @return {@link List<Cell> }
+     * @author zhl
+     * @date 2021-08-24 16:52
+     * @version V1.0
+     */
+    public List<Cell> getColonmsCellByTopRowName(String rowName){
+        List<Cell> result = new ArrayList<>();
+        XSSFSheet sheet = workbook.getSheet(excel.getSheetName());
+        //获取第一行
+        XSSFRow firstRow = sheet.getRow(0);
+        Iterator<Cell> iterator = firstRow.iterator();
+        while (iterator.hasNext()){
+            XSSFCell cell = (XSSFCell) iterator.next();
+            if(cell.getStringCellValue().equals(rowName)){
+                int index = cell.getColumnIndex();
+                //开始获取内容
+                Iterator<Row> rows = sheet.iterator();
+                while (rows.hasNext()){
+                    XSSFRow row = (XSSFRow) rows.next();
+                    //跳过第一排
+                    if(row.getCell(index).getStringCellValue().equals(rowName)){
+                        continue;
+                    }
+                    XSSFCell temp = row.getCell(index);
+                    result.add(temp);
+                }
+            }
+            return result;
+        }
+        return null;
+    }
+
+    /**
+     * 获取标题行所在的列数
+     * @param rowName 行名称
+     * @return @return int
+     * @author zhl
+     * @date 2021-08-24 16:51
+     * @version V1.0
+     */
+    public int getTopRowNameIndex(String rowName) {
+        XSSFSheet sheet = workbook.getSheet(excel.getSheetName());
+        int index = 0;
+        //获取第一行
+        XSSFRow firstRow = sheet.getRow(0);
+        Iterator<Cell> iterator = firstRow.iterator();
+        while (iterator.hasNext()) {
+            XSSFCell cell = (XSSFCell) iterator.next();
+            if (cell.getStringCellValue().equals(rowName)) {
+                index = cell.getColumnIndex();
+            }
+            break;
+        }
+        return index;
     }
 
     public XSSFWorkbook getWorkbook() {

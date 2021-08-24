@@ -21,7 +21,7 @@ public class excel {
         excel.setSheetName("workbook.1.sheet");
         excel.setTopRowName("workbook.1.toprow");
         HighOrderExcel highOrderExcel = new HighOrderExcel(excel);
-        List<String> list = highOrderExcel.getColomnsValueByTopRowName(excel.getTopRowName());
+        List<String> list = highOrderExcel.getColonmsValueByTopRowName(excel.getTopRowName());
 
         highOrderExcel.close();
         System.out.println(list.size());
