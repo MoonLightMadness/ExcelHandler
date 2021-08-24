@@ -1,7 +1,7 @@
 package log;
 
-import app.utils.SimpleUtils;
 import lombok.Data;
+import utils.SimpleUtils;
 
 
 /**

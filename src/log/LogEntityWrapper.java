@@ -1,7 +1,7 @@
 package log;
 
-import app.utils.SimpleUtils;
 
+import utils.SimpleUtils;
 
 /**
  * @ClassName : utils.middle.wrapper.LogEntityWrapper

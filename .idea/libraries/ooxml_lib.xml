@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="ooxml-lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../dsm/lib/ooxml-lib" />
+      <root url="file://$PROJECT_DIR$/../dsm/lib/xml-lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../dsm/lib/ooxml-lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../dsm/lib/xml-lib" recursive="false" />
+  </library>
+</component>

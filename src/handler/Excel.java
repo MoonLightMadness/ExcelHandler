@@ -21,6 +21,30 @@ public class Excel {
 
     public Excel(){
         configer = new Configer();
+
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = configer.readConfig(filePath);
+    }
+
+    public String getSheetName() {
+        return sheetName;
+    }
+
+    public void setSheetName(String sheetName) {
+        this.sheetName = configer.readConfig(sheetName);
+    }
+
+    public String getTopRowName() {
+        return topRowName;
+    }
+
+    public void setTopRowName(String topRowName) {
+        this.topRowName = configer.readConfig(topRowName);
+    }
 }
