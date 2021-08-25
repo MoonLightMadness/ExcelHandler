@@ -48,7 +48,9 @@ public class GetHandler implements Handler {
         for (String property : properties) {
             List<Cell> temp = highOrderExcel.getColonmsCellByTopRowName(property);
             if (limits != null) {
-                temp = removeLimits(temp);
+                for(String limit : limits.keySet()){
+                    temp = removeLimits(temp,limit);
+                }
             }
             List<String> values = new ArrayList<>();
             for (Cell cell : temp) {
@@ -59,15 +61,13 @@ public class GetHandler implements Handler {
         return result;
     }
 
-    private List<Cell> removeLimits(List<Cell> origin) {
+    private List<Cell> removeLimits(List<Cell> origin,String limit) {
         List<Cell> newer = new ArrayList<>();
-        for (String limit : limits.keySet()) {
-            String value = limits.get(limit);
-            int index = highOrderExcel.getTopRowNameIndex(limit);
-            for (Cell cell : origin) {
-                if (cell.getRow().getCell(index).getStringCellValue().equals(value)) {
-                    newer.add(cell);
-                }
+        String value = limits.get(limit);
+        int index = highOrderExcel.getTopRowNameIndex(limit);
+        for (Cell cell : origin) {
+            if (cell.getRow().getCell(index).getStringCellValue().equals(value)) {
+                newer.add(cell);
             }
         }
         return newer;

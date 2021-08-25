@@ -58,9 +58,9 @@ public class Executer {
                 "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
                 "事项名称,对接状态\n" +
                 "LIMIT\n" +
-                "生产环境是否配置 = 是\n" +
+                "生产环境是否配置 = 是,\n" +
+                "对接状态 = 验证通过\n" +
                 "END\n" +
-                "\n" +
                 "}\n";
         Executer executer = new Executer();
         Map<String, List<String>> result = executer.execute(str);
