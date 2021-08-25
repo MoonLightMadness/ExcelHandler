@@ -1,5 +1,7 @@
 package grammar.syntax;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -12,7 +14,16 @@ public class Executer {
 
     private Analyser analyser;
 
+    private Map<String, List<String>> results;
 
+    /**
+     * 执行命令
+     * @param command 命令
+     * @return
+     * @author zhl
+     * @date 2021-08-25 10:14
+     * @version V1.0
+     */
     public void execute(String command){
         analyser = new Analyser();
         analyser.analyse(command);
