@@ -56,7 +56,7 @@ public class Executer {
         String str ="main{\n" +
                 "\n" +
                 "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
-                "事项名称\n" +
+                "事项名称,对接状态\n" +
                 "LIMIT\n" +
                 "生产环境是否配置 = 是\n" +
                 "END\n" +

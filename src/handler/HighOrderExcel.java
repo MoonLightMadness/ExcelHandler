@@ -108,9 +108,8 @@ public class HighOrderExcel {
                     result.add(temp);
                 }
             }
-            return result;
         }
-        return null;
+        return result;
     }
 
     /**

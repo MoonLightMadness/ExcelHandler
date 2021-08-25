@@ -128,7 +128,8 @@ public class GetHandler implements Handler {
         Matcher matcher = pattern.matcher(command);
         List<String> results = new ArrayList<>();
         while (matcher.find()) {
-            results.add(matcher.group(1).trim());
+            String str = matcher.group(1).trim();
+            results.addAll(Arrays.asList(str.split(",")));
         }
         return results;
     }
