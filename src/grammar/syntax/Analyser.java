@@ -64,7 +64,7 @@ public class Analyser {
         getFunctionMap(command);
         getVariableMap(command);
         generateOrder(command);
-        //syntaxParse(command);
+        syntaxParse(command);
     }
 
 
@@ -108,21 +108,11 @@ public class Analyser {
      * @version V1.0
      */
     private void syntaxParse(String command){
-        //获取模式字符
-        String mode =  mainFuncBody.substring(0,mainFuncBody.indexOf(" "));
         //确定解析顺序
-
-        //解析
-        if(SyntaxMode.SET.getMode().equals(mode)){
-
-        }
-        if(SyntaxMode.GET.getMode().equals(mode)){
-
-        }
-        if(SyntaxMode.DELETE.getMode().equals(mode)){
-
-        }
+        order = new OrderHandler(command,this).getOrder();
     }
+
+
 
 
 
