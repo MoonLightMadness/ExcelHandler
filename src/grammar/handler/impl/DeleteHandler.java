@@ -8,5 +8,5 @@ import grammar.handler.Handler;
  * @Date 2021-08-25 10:18:32
  * @Author ZhangHL
  */
-public class DeleteHandler implements Handler {
+public class DeleteHandler {
 }

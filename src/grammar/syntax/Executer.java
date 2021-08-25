@@ -1,8 +1,11 @@
 package grammar.syntax;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import grammar.handler.Handler;
+import grammar.handler.HandlerFactory;
+import org.junit.Test;
+import utils.SimpleUtils;
+
+import java.util.*;
 
 /**
  * @ClassName : grammar.syntax.Executer
@@ -18,24 +21,58 @@ public class Executer {
 
     /**
      * 执行命令
+     *
      * @param command 命令
      * @return
      * @author zhl
      * @date 2021-08-25 10:14
      * @version V1.0
      */
-    public void execute(String command){
+    public Map<String, List<String>> execute(String command) {
         analyser = new Analyser();
         analyser.analyse(command);
         Stack<String> order = analyser.getOrder();
-        while (!order.empty()){
-            subExecution(order.pop());
+        Map<String, List<String>> result = new HashMap<>();
+        while (!order.empty()) {
+            result.putAll(subExecution(order.pop()));
         }
+        return result;
     }
 
-    private void subExecution(String funcname){
-        String body = analyser.getFunctionMap().get(funcname);
+    private Map<String, List<String>> subExecution(String funcname) {
+        String body = null;
+        if("MAIN".equals(funcname.toUpperCase(Locale.ROOT))){
+            body = analyser.getMainFuncBody();
+        }else {
+            body = analyser.getFunctionMap().get(funcname);
+        }
+        Handler handler = HandlerFactory.getHandler(body);
+        Map<String, List<String>> subResult = handler.execute(body, analyser);
+        return subResult;
+    }
 
+    @Test
+    public void test(){
+        String str ="main{\n" +
+                "\n" +
+                "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
+                "事项名称\n" +
+                "LIMIT\n" +
+                "\n" +
+                "}\n";
+        Executer executer = new Executer();
+        Map<String, List<String>> result = executer.execute(str);
+        Set<String> set = result.keySet();
+        for (String ss : set){
+            System.out.println(ss);
+            List<String> values = result.get(ss);
+            for(String value:values){
+                if(!SimpleUtils.isEmptyString(value)){
+                    System.out.println(value);
+                }
+            }
+        }
+        System.out.println(result.size());
     }
 
 }

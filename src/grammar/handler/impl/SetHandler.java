@@ -8,5 +8,5 @@ import grammar.handler.Handler;
  * @Date 2021-08-25 10:18:15
  * @Author ZhangHL
  */
-public class SetHandler implements Handler {
+public class SetHandler  {
 }

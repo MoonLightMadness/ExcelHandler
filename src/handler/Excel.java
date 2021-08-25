@@ -29,7 +29,7 @@ public class Excel {
     }
 
     public void setFilePath(String filePath) {
-        this.filePath = configer.readConfig(filePath);
+        this.filePath = filePath;
     }
 
     public String getSheetName() {
@@ -37,7 +37,7 @@ public class Excel {
     }
 
     public void setSheetName(String sheetName) {
-        this.sheetName = configer.readConfig(sheetName);
+        this.sheetName = sheetName;
     }
 
     public String getTopRowName() {
@@ -45,6 +45,6 @@ public class Excel {
     }
 
     public void setTopRowName(String topRowName) {
-        this.topRowName = configer.readConfig(topRowName);
+        this.topRowName = sheetName;
     }
 }

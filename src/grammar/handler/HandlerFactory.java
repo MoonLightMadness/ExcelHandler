@@ -5,6 +5,8 @@ import grammar.handler.impl.DeleteHandler;
 import grammar.handler.impl.GetHandler;
 import grammar.handler.impl.SetHandler;
 
+import java.util.Locale;
+
 /**
  * @ClassName : grammar.handler.HandlerFactory
  * @Description :
@@ -17,15 +19,15 @@ public class HandlerFactory {
 
     public static Handler getHandler(String str){
         str = str.trim();
-        String head = str.substring(0,str.indexOf(" "));
-        if(SyntaxMode.SET.getMode().equals(head)){
-            return new SetHandler();
+        String head = str.substring(0,str.indexOf(" ")).trim();
+        if(SyntaxMode.SET.getMode().equals(head.toUpperCase(Locale.ROOT))){
+            //return new SetHandler();
         }
-        if(SyntaxMode.GET.getMode().equals(head)){
+        if(SyntaxMode.GET.getMode().equals(head.toUpperCase(Locale.ROOT))){
             return new GetHandler();
         }
-        if(SyntaxMode.DELETE.getMode().equals(head)){
-            return new DeleteHandler();
+        if(SyntaxMode.DELETE.getMode().equals(head.toUpperCase(Locale.ROOT))){
+            //return new DeleteHandler();
         }
         return null;
     }
