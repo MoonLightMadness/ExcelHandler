@@ -4,6 +4,7 @@ import grammar.handler.Handler;
 import grammar.syntax.Analyser;
 import handler.Excel;
 import handler.HighOrderExcel;
+import org.apache.poi.ss.usermodel.Cell;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -45,17 +46,31 @@ public class GetHandler implements Handler {
     private Map<String, List<String>> get() {
         Map<String, List<String>> result = new HashMap<>();
         for (String property : properties) {
-            List<String> temp = highOrderExcel.getColonmsValueByTopRowName(property);
+            List<Cell> temp = highOrderExcel.getColonmsCellByTopRowName(property);
             if (limits != null) {
-                removeLimits(temp);
+                temp = removeLimits(temp);
             }
-            result.put(property, temp);
+            List<String> values = new ArrayList<>();
+            for (Cell cell : temp) {
+                values.add(cell.getStringCellValue());
+            }
+            result.put(property, values);
         }
         return result;
     }
 
-    private void removeLimits(List<String> origin) {
-
+    private List<Cell> removeLimits(List<Cell> origin) {
+        List<Cell> newer = new ArrayList<>();
+        for (String limit : limits.keySet()) {
+            String value = limits.get(limit);
+            int index = highOrderExcel.getTopRowNameIndex(limit);
+            for (Cell cell : origin) {
+                if (cell.getRow().getCell(index).getStringCellValue().equals(value)) {
+                    newer.add(cell);
+                }
+            }
+        }
+        return newer;
     }
 
     private void initializeIndexs() {

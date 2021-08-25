@@ -131,8 +131,8 @@ public class HighOrderExcel {
             XSSFCell cell = (XSSFCell) iterator.next();
             if (cell.getStringCellValue().equals(rowName)) {
                 index = cell.getColumnIndex();
+                break;
             }
-            break;
         }
         return index;
     }

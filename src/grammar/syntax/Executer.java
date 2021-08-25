@@ -58,6 +58,8 @@ public class Executer {
                 "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
                 "事项名称\n" +
                 "LIMIT\n" +
+                "生产环境是否配置 = 是\n" +
+                "END\n" +
                 "\n" +
                 "}\n";
         Executer executer = new Executer();
@@ -66,11 +68,12 @@ public class Executer {
         for (String ss : set){
             System.out.println(ss);
             List<String> values = result.get(ss);
-            for(String value:values){
-                if(!SimpleUtils.isEmptyString(value)){
-                    System.out.println(value);
-                }
-            }
+            System.out.println(values.size());
+//            for(String value:values){
+//                if(!SimpleUtils.isEmptyString(value)){
+//                    System.out.println(value);
+//                }
+//            }
         }
         System.out.println(result.size());
     }
