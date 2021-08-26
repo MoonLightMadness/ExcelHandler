@@ -21,7 +21,7 @@ public class HandlerFactory {
         str = str.trim();
         String head = str.substring(0,str.indexOf(" ")).trim();
         if(SyntaxMode.SET.getMode().equals(head.toUpperCase(Locale.ROOT))){
-            //return new SetHandler();
+            return new SetHandler();
         }
         if(SyntaxMode.GET.getMode().equals(head.toUpperCase(Locale.ROOT))){
             return new GetHandler();

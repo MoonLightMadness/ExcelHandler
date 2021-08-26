@@ -14,3 +14,31 @@ syntax get_1{
 	事项编码 = 11220000MB1528034J200013100300056 
 	END 
 }
+
+------------------------------------------------------------------------------------------------------
+
+main{
+	Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅
+	事项名称,对接状态
+	LIMIT
+	事项编码 = EXEC(get_1)
+	END 
+}
+
+syntax get_1{ 
+	Get C:\\Users\\Administrator\\Desktop\\test.Sheet1 
+	业务办理项编码 
+	LIMIT 
+	END 
+}
+
+------------------------------------------------------------------------------------------------------
+
+
+main{
+	Set C:\\Users\\Administrator\\Desktop\\source.4省市监厅
+	对接状态 = 验证通过
+	LIMIT
+	生产环境是否配置 = 是
+	END
+}

@@ -1,6 +1,7 @@
 package grammar.handler.utils;
 
 import grammar.syntax.Analyser;
+import handler.Excel;
 import handler.HighOrderExcel;
 import org.apache.poi.ss.usermodel.Cell;
 
@@ -18,7 +19,7 @@ public class CommandParseUtil {
 
     private static final Pattern limitPattern = Pattern.compile("LIMIT\\n((.|\\n)*?)END", Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern propertyPattern = Pattern.compile("(.*?)\\n.*LIMIT", Pattern.CASE_INSENSITIVE);
+    private static final Pattern propertyPattern = Pattern.compile(".*?[setgdl].*?\\n((.|\\n)*?)LIMIT", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern filePathPattern = Pattern.compile("(.*?)\\.(.*?)\\n", Pattern.CASE_INSENSITIVE);
 
@@ -130,5 +131,14 @@ public class CommandParseUtil {
             }
         }
         return results;
+    }
+
+    public static HighOrderExcel getHighOrderExcel(String command){
+        Excel excel = new Excel();
+        String filePath = CommandParseUtil.getFilePath(command);
+        String sheetName = CommandParseUtil.getSheetName(command);
+        excel.setFilePath(filePath);
+        excel.setSheetName(sheetName);
+        return new HighOrderExcel(excel);
     }
 }

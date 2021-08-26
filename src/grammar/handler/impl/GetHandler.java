@@ -20,11 +20,6 @@ import java.util.regex.Pattern;
  */
 public class GetHandler implements Handler {
 
-
-    private Analyser analyser;
-
-    private Pattern pattern;
-
     private HighOrderExcel highOrderExcel;
 
     private Executer executer;
@@ -38,14 +33,9 @@ public class GetHandler implements Handler {
     @Override
     public Map<String, List<String>> execute(String command, Analyser analyser, Executer executer) {
         this.executer = executer;
-        this.analyser = analyser;
-        highOrderExcel = getHighOrderExcel(command);
+        highOrderExcel = CommandParseUtil.getHighOrderExcel(command);
         properties = CommandParseUtil.getProperties(command);
         limits = CommandParseUtil.getLimits(command);
-        //初始化索引表
-        indexBackUp = new HashMap<>();
-        //暂时没用
-        //initializeIndexs();
         return get();
     }
 
@@ -101,14 +91,6 @@ public class GetHandler implements Handler {
         }
     }
 
-    private HighOrderExcel getHighOrderExcel(String command) {
-        Excel excel = new Excel();
-        String filePath = CommandParseUtil.getFilePath(command);
-        String sheetName = CommandParseUtil.getSheetName(command);
-        excel.setFilePath(filePath);
-        excel.setSheetName(sheetName);
-        return new HighOrderExcel(excel);
-    }
 
     /**
      * 获取给定名字的顶部标题栏所在的列的索引
