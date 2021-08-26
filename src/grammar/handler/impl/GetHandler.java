@@ -65,12 +65,15 @@ public class GetHandler implements Handler {
     private List<Cell> removeLimits(List<Cell> origin,String limit) {
         List<Cell> newer = new ArrayList<>();
         String value = limits.get(limit);
-        int index = highOrderExcel.getTopRowNameIndex(limit);
-        for (Cell cell : origin) {
-            if (cell.getRow().getCell(index).getStringCellValue().equals(value)) {
-                newer.add(cell);
-            }
+        //函数调用
+        if(value.toUpperCase(Locale.ROOT).startsWith("EXEC(")&&
+        value.toUpperCase(Locale.ROOT).endsWith(")")){
+            //函数调用
+        }else {
+            //主方法调用
+            newer = CommandParseUtil.limitEqualIn(origin,value,limit,highOrderExcel);
         }
+
         return newer;
     }
 

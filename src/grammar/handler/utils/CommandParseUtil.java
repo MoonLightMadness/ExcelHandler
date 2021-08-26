@@ -1,6 +1,8 @@
 package grammar.handler.utils;
 
 import grammar.syntax.Analyser;
+import handler.HighOrderExcel;
+import org.apache.poi.ss.usermodel.Cell;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -67,5 +69,51 @@ public class CommandParseUtil {
 
     public static String getVariableValue(String name, Analyser analyser) {
         return analyser.getVariableMap().get(name);
+    }
+
+    /**
+     * 重建结果集，保留其Cell所在Row的与其Limit值相等的值
+     * @param source         源列表
+     * @param limitName
+     * @param limitValue     limit的值
+     * @param highOrderExcel
+     * @return @return {@link List<Cell> }
+     * @author zhl
+     * @date 2021-08-26 10:12
+     * @version V1.0
+     */
+    public static List<Cell> limitEqualIn(List<Cell> source, String limitName,
+                                          String limitValue, HighOrderExcel highOrderExcel) {
+        List<Cell> results = new ArrayList<>();
+        int index = highOrderExcel.getTopRowNameIndex(limitName);
+        for (Cell cell : source) {
+            if (cell.getRow().getCell(index).getStringCellValue().equals(limitValue)) {
+                results.add(cell);
+            }
+        }
+        return results;
+    }
+
+    /**
+     * 重建结果集，保留其Cell所在Row的与其Limit值不相等的值
+     * @param source         原列表
+     * @param limitName
+     * @param limitValue     limit的值
+     * @param highOrderExcel
+     * @return @return {@link List<Cell> }
+     * @author zhl
+     * @date 2021-08-26 10:13
+     * @version V1.0
+     */
+    public static List<Cell> limitNotEqualIn(List<Cell> source, String limitName,
+                                             String limitValue, HighOrderExcel highOrderExcel) {
+        List<Cell> results = new ArrayList<>();
+        int index = highOrderExcel.getTopRowNameIndex(limitName);
+        for (Cell cell : source) {
+            if (!cell.getRow().getCell(index).getStringCellValue().equals(limitValue)) {
+                results.add(cell);
+            }
+        }
+        return results;
     }
 }

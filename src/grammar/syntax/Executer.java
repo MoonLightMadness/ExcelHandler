@@ -58,10 +58,19 @@ public class Executer {
                 "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
                 "事项名称,对接状态\n" +
                 "LIMIT\n" +
-                "生产环境是否配置 = 是,\n" +
+                "生产环境是否配置 = EXEC(get_1),\n" +
                 "对接状态 = 验证通过\n" +
                 "END\n" +
-                "}\n";
+                "\n" +
+                "}\n" +
+                "\n" +
+                "syntax get_1{\n" +
+                "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
+                "对接状态\n" +
+                "LIMIT\n" +
+                "事项编码 = 11220000MB1528034J200013100300056\n" +
+                "END\n" +
+                "}";
         Executer executer = new Executer();
         Map<String, List<String>> result = executer.execute(str);
         Set<String> set = result.keySet();
