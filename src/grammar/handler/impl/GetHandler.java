@@ -84,7 +84,7 @@ public class GetHandler implements Handler {
     }
 
     private List<String> functionCall(String command) {
-        //TODO
+        command = command.substring(5,command.length()-1);
         return executer.getFuncResults().get(command);
     }
 
