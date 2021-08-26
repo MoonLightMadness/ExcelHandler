@@ -2,6 +2,7 @@ package grammar.syntax;
 
 import grammar.enums.SyntaxMode;
 import grammar.handler.OrderHandler;
+import grammar.handler.utils.AnalyserUtil;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -70,8 +71,7 @@ public class Analyser {
 
     private void getFunctionMap(String command){
         functionMap = new HashMap<>();
-        Pattern pattern = Pattern.compile("SYNTAX(.*?)\\{((\\n|.)*?)}",Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(command);
+        Matcher matcher = AnalyserUtil.functionMapPattern.matcher(command);
         while (matcher.find()) {
             functionMap.put(matcher.group(1).trim(),matcher.group(2).trim());
         }
@@ -79,16 +79,14 @@ public class Analyser {
 
     private void getVariableMap(String command){
         variableMap = new HashMap<>();
-        Pattern pattern = Pattern.compile("var(.*?)=(.*?)[\\n$]",Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(command);
+        Matcher matcher = AnalyserUtil.variableMapPattern.matcher(command);
         while (matcher.find()) {
             variableMap.put(matcher.group(1).trim(),matcher.group(2).trim());
         }
     }
 
     private void getMainFunc(String command){
-        Pattern pattern = Pattern.compile("MAIN(.*?)\\{((\\n|.)*?)}",Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(command);
+        Matcher matcher = AnalyserUtil.mainFuncPattern.matcher(command);
         while (matcher.find()) {
             mainFuncName = "MAIN";
             mainFuncBody = matcher.group(2).trim();

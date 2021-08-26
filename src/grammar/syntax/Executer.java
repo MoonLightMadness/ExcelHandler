@@ -99,13 +99,12 @@ public class Executer {
             System.out.println(ss);
             List<String> values = result.get(ss);
             System.out.println(values.size());
-//            for(String value:values){
-//                if(!SimpleUtils.isEmptyString(value)){
-//                    System.out.println(value);
-//                }
-//            }
+            for(String value:values){
+                if(!SimpleUtils.isEmptyString(value)){
+                    System.out.println(value);
+                }
+            }
         }
-        System.out.println(result.size());
     }
 
 }

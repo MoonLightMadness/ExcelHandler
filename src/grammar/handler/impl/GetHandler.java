@@ -44,7 +44,8 @@ public class GetHandler implements Handler {
         limits = CommandParseUtil.getLimits(command);
         //初始化索引表
         indexBackUp = new HashMap<>();
-        initializeIndexs();
+        //暂时没用
+        //initializeIndexs();
         return get();
     }
 
