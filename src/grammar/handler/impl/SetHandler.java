@@ -2,6 +2,7 @@ package grammar.handler.impl;
 
 import grammar.handler.Handler;
 import grammar.syntax.Analyser;
+import grammar.syntax.Executer;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
  */
 public class SetHandler implements Handler {
     @Override
-    public Map<String, List<String>> execute(String command, Analyser analyser) {
+    public Map<String, List<String>> execute(String command, Analyser analyser, Executer executer) {
         return null;
     }
 }

@@ -94,6 +94,21 @@ public class CommandParseUtil {
         return results;
     }
 
+    public static List<Cell> limitEqualIn(List<Cell> source,String limitName,List<String> limits,
+                                          HighOrderExcel highOrderExcel){
+        List<Cell> results = new ArrayList<>();
+        int index = highOrderExcel.getTopRowNameIndex(limitName);
+        for(Cell cell : source){
+            for (String limit : limits){
+                if (cell.getRow().getCell(index).getStringCellValue().equals(limit)) {
+                    results.add(cell);
+                    break;
+                }
+            }
+        }
+        return results;
+    }
+
     /**
      * 重建结果集，保留其Cell所在Row的与其Limit值不相等的值
      * @param source         原列表

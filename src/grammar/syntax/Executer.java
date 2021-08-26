@@ -19,6 +19,8 @@ public class Executer {
 
     private Map<String, List<String>> results;
 
+    private Map<String,List<String>> funcResults;
+
     /**
      * 执行命令
      *
@@ -33,8 +35,12 @@ public class Executer {
         analyser.analyse(command);
         Stack<String> order = analyser.getOrder();
         Map<String, List<String>> result = new HashMap<>();
+        funcResults = new HashMap<>();
         while (!order.empty()) {
-            result.putAll(subExecution(order.pop()));
+            Map<String, List<String>>re = subExecution(order.pop());
+            if(null != re){
+                result.putAll(re);
+            }
         }
         return result;
     }
@@ -45,10 +51,25 @@ public class Executer {
             body = analyser.getMainFuncBody();
         }else {
             body = analyser.getFunctionMap().get(funcname);
+            funcResults.put(funcname,functionExecution(body));
+            return null;
         }
         Handler handler = HandlerFactory.getHandler(body);
-        Map<String, List<String>> subResult = handler.execute(body, analyser);
+        Map<String, List<String>> subResult = handler.execute(body, analyser,this);
         return subResult;
+    }
+
+    private List<String> functionExecution(String body){
+        Handler handler = HandlerFactory.getHandler(body);
+        Map<String, List<String>> subResult = handler.execute(body, analyser,this);
+        for(String s : subResult.keySet()){
+            return subResult.get(s);
+        }
+        return null;
+    }
+
+    public Map<String, List<String>> getFuncResults() {
+        return funcResults;
     }
 
     @Test

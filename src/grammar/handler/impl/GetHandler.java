@@ -3,6 +3,7 @@ package grammar.handler.impl;
 import grammar.handler.Handler;
 import grammar.handler.utils.CommandParseUtil;
 import grammar.syntax.Analyser;
+import grammar.syntax.Executer;
 import handler.Excel;
 import handler.HighOrderExcel;
 import org.apache.poi.ss.usermodel.Cell;
@@ -26,6 +27,8 @@ public class GetHandler implements Handler {
 
     private HighOrderExcel highOrderExcel;
 
+    private Executer executer;
+
     List<String> properties;
 
     Map<String, String> limits;
@@ -33,7 +36,8 @@ public class GetHandler implements Handler {
     Map<String, Integer> indexBackUp;
 
     @Override
-    public Map<String, List<String>> execute(String command, Analyser analyser) {
+    public Map<String, List<String>> execute(String command, Analyser analyser, Executer executer) {
+        this.executer = executer;
         this.analyser = analyser;
         highOrderExcel = getHighOrderExcel(command);
         properties = CommandParseUtil.getProperties(command);
@@ -49,8 +53,8 @@ public class GetHandler implements Handler {
         for (String property : properties) {
             List<Cell> temp = highOrderExcel.getColonmsCellByTopRowName(property);
             if (limits != null) {
-                for(String limit : limits.keySet()){
-                    temp = removeLimits(temp,limit);
+                for (String limit : limits.keySet()) {
+                    temp = removeLimits(temp, limit);
                 }
             }
             List<String> values = new ArrayList<>();
@@ -59,22 +63,29 @@ public class GetHandler implements Handler {
             }
             result.put(property, values);
         }
+        highOrderExcel.close();
         return result;
     }
 
-    private List<Cell> removeLimits(List<Cell> origin,String limit) {
+    private List<Cell> removeLimits(List<Cell> origin, String limit) {
         List<Cell> newer = new ArrayList<>();
         String value = limits.get(limit);
         //函数调用
-        if(value.toUpperCase(Locale.ROOT).startsWith("EXEC(")&&
-        value.toUpperCase(Locale.ROOT).endsWith(")")){
+        if (value.toUpperCase(Locale.ROOT).startsWith("EXEC(") &&
+                value.toUpperCase(Locale.ROOT).endsWith(")")) {
             //函数调用
-        }else {
-            //主方法调用
-            newer = CommandParseUtil.limitEqualIn(origin,value,limit,highOrderExcel);
+            List<String> funcValue = functionCall(value);
+            newer = CommandParseUtil.limitEqualIn(origin, limit, funcValue, highOrderExcel);
+        } else {
+            newer = CommandParseUtil.limitEqualIn(origin, limit, value, highOrderExcel);
         }
 
         return newer;
+    }
+
+    private List<String> functionCall(String command) {
+        //TODO
+        return executer.getFuncResults().get(command);
     }
 
     private void initializeIndexs() {
@@ -110,8 +121,6 @@ public class GetHandler implements Handler {
     private int getIndex(String topRowName) {
         return highOrderExcel.getTopRowNameIndex(topRowName);
     }
-
-
 
 
 }
