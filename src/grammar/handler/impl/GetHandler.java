@@ -1,6 +1,7 @@
 package grammar.handler.impl;
 
 import grammar.handler.Handler;
+import grammar.handler.utils.CommandParseUtil;
 import grammar.syntax.Analyser;
 import handler.Excel;
 import handler.HighOrderExcel;
@@ -35,8 +36,8 @@ public class GetHandler implements Handler {
     public Map<String, List<String>> execute(String command, Analyser analyser) {
         this.analyser = analyser;
         highOrderExcel = getHighOrderExcel(command);
-        properties = getProperties(command);
-        limits = getLimits(command);
+        properties = CommandParseUtil.getProperties(command);
+        limits = CommandParseUtil.getLimits(command);
         //初始化索引表
         indexBackUp = new HashMap<>();
         initializeIndexs();
@@ -87,8 +88,8 @@ public class GetHandler implements Handler {
 
     private HighOrderExcel getHighOrderExcel(String command) {
         Excel excel = new Excel();
-        String filePath = getFilePath(command);
-        String sheetName = getSheetName(command);
+        String filePath = CommandParseUtil.getFilePath(command);
+        String sheetName = CommandParseUtil.getSheetName(command);
         excel.setFilePath(filePath);
         excel.setSheetName(sheetName);
         return new HighOrderExcel(excel);
@@ -107,56 +108,7 @@ public class GetHandler implements Handler {
         return highOrderExcel.getTopRowNameIndex(topRowName);
     }
 
-    private Map<String, String> getLimits(String commad) {
-        pattern = Pattern.compile("LIMIT\\n((.|\\n)*?)END", Pattern.CASE_INSENSITIVE);
-        Map<String, String> limits = new HashMap<>();
-        Matcher matcher = pattern.matcher(commad);
-        if (matcher.find()) {
-            String temp = matcher.group(1).trim();
-            temp = temp.replaceAll("\\n", "");
-            for (String equition : temp.split(",")) {
-                String[] ss = equition.split("=");
-                limits.put(ss[0].trim(), ss[1].trim());
-            }
-            return limits;
-        }
-        return null;
-    }
 
-    private List<String> getProperties(String command) {
-        pattern = Pattern.compile("(.*?)\\nLIMIT", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(command);
-        List<String> results = new ArrayList<>();
-        while (matcher.find()) {
-            String str = matcher.group(1).trim();
-            results.addAll(Arrays.asList(str.split(",")));
-        }
-        return results;
-    }
-
-    private String getFilePath(String command) {
-        pattern = Pattern.compile("(.*?)\\.(.*?)\\n", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(command);
-        String filePath = null;
-        if (matcher.find()) {
-            filePath = matcher.group(1).split(" ")[1].trim() + ".xlsx";
-        }
-        return filePath;
-    }
-
-    private String getSheetName(String command) {
-        pattern = Pattern.compile("(.*?)\\.(.*?)\\n", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(command);
-        String sheetName = null;
-        if (matcher.find()) {
-            sheetName = matcher.group(2).trim();
-        }
-        return sheetName;
-    }
-
-    private String getVariableValue(String name) {
-        return analyser.getVariableMap().get(name);
-    }
 
 
 }
