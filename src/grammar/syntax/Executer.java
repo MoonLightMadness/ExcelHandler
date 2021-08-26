@@ -75,22 +75,18 @@ public class Executer {
     @Test
     public void test(){
         String str ="main{\n" +
-                "\n" +
-                "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
+                "Get C:\\\\Users\\\\Administrator\\\\Desktop\\\\source.4省市监厅\n" +
                 "事项名称,对接状态\n" +
                 "LIMIT\n" +
-                "生产环境是否配置 = 是,\n" +
-                "对接状态 = EXEC(get_1)\n" +
-                "END\n" +
-                "\n" +
+                "事项编码 = EXEC(get_1)\n" +
+                "END \n" +
                 "}\n" +
                 "\n" +
-                "syntax get_1{\n" +
-                "Get C:\\Users\\Administrator\\Desktop\\source.4省市监厅\n" +
-                "对接状态\n" +
-                "LIMIT\n" +
-                "事项编码 = 11220000MB1528034J200013100300056\n" +
-                "END\n" +
+                "syntax get_1{ \n" +
+                "Get C:\\\\Users\\\\Administrator\\\\Desktop\\\\test.Sheet1\n" +
+                "业务办理项编码\n" +
+                "LIMIT \n" +
+                "END \n" +
                 "}";
         Executer executer = new Executer();
         Map<String, List<String>> result = executer.execute(str);

@@ -18,7 +18,7 @@ public class CommandParseUtil {
 
     private static final Pattern limitPattern = Pattern.compile("LIMIT\\n((.|\\n)*?)END", Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern propertyPattern = Pattern.compile("(.*?)\\nLIMIT", Pattern.CASE_INSENSITIVE);
+    private static final Pattern propertyPattern = Pattern.compile("(.*?)\\n.*LIMIT", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern filePathPattern = Pattern.compile("(.*?)\\.(.*?)\\n", Pattern.CASE_INSENSITIVE);
 
