@@ -4,6 +4,7 @@ import org.yaml.snakeyaml.reader.StreamReader;
 import utils.SimpleUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Application {
             return;
         }
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             String temp;
             StringBuilder stringBuilder = new StringBuilder();
             while ((temp = reader.readLine()) != null) {

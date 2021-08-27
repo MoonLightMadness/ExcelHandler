@@ -122,18 +122,23 @@ public class HighOrderExcel {
      */
     public int getTopRowNameIndex(String rowName) {
         XSSFSheet sheet = workbook.getSheet(excel.getSheetName());
-        int index = 0;
-        //获取第一行
-        XSSFRow firstRow = sheet.getRow(0);
-        Iterator<Cell> iterator = firstRow.iterator();
-        while (iterator.hasNext()) {
-            XSSFCell cell = (XSSFCell) iterator.next();
-            if (cell.getStringCellValue().equals(rowName)) {
-                index = cell.getColumnIndex();
-                break;
+        if(sheet != null){
+            int index = 0;
+            //获取第一行
+            XSSFRow firstRow = sheet.getRow(0);
+            Iterator<Cell> iterator = firstRow.iterator();
+            while (iterator.hasNext()) {
+                XSSFCell cell = (XSSFCell) iterator.next();
+                if (cell.getStringCellValue().equals(rowName)) {
+                    index = cell.getColumnIndex();
+                    break;
+                }
             }
+            return index;
+        }else {
+            System.out.println("sheet为空----"+excel.getSheetName());
         }
-        return index;
+        return 0;
     }
 
     public void setCellValue(Cell cell,String value){
