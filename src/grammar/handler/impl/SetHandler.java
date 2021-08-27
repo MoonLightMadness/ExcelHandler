@@ -43,7 +43,7 @@ public class SetHandler implements Handler {
         List<Integer> limitsIndex = new ArrayList<>();
         Map<String, List<String>> alllimit = new HashMap<>();
         for (String property : properties) {
-            changedPropertiesIndex.add(highOrderExcel.getTopRowNameIndex(property));
+            changedPropertiesIndex.add(highOrderExcel.getTopRowNameIndex(getPropertyName(property)));
         }
         for (String key : limits.keySet()) {
             limitsIndex.add(highOrderExcel.getTopRowNameIndex(key));
@@ -73,16 +73,17 @@ public class SetHandler implements Handler {
             count = 0;
             if(check(canSuit)){
                 Row row = cell.getRow();
-                for(Integer in : changedPropertiesIndex){
-                    row.getCell(in).setCellValue(getPropertyValue(in));
+                for(String property : properties){
+                    row.getCell(highOrderExcel.getTopRowNameIndex(getPropertyName(property)))
+                            .setCellValue(getPropertyValue(property));
                 }
             }
+            canSuit = new boolean[alllimit.keySet().size()];
         }
     }
 
-    private String getPropertyValue(int index){
-        String res = properties.get(index);
-        return res.split("=")[1].trim();
+    private String getPropertyValue(String str){
+        return str.split("=")[1].trim();
     }
 
     private String getPropertyName(String property){
