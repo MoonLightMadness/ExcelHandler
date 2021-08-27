@@ -38,6 +38,7 @@ public class Application {
             while ((temp = reader.readLine()) != null) {
                 stringBuilder.append(temp).append("\n");
             }
+            reader.close();
             Executer executer = new Executer();
             Map<String, List<String>> result = executer.execute(stringBuilder.toString());
             if (null != result) {
