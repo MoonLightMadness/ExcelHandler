@@ -105,12 +105,20 @@ public class Executer {
 
     @Test
     public void setTest(){
-        String str = "main{\n" +
+        String str = "\n" +
+                "main{\n" +
                 "\tSet C:\\\\Users\\\\Administrator\\\\Desktop\\\\source.4省市监厅\n" +
-                "\t对接状态 = 验证通过\n" +
+                "\t对接状态 = 验证xx通过\n" +
                 "\tLIMIT\n" +
-                "\t生产环境是否配置 = 是\n" +
+                "\t事项编码 = EXEC(get_1)\n" +
                 "\tEND\n" +
+                "}\n" +
+                "\n" +
+                "syntax get_1{ \n" +
+                "\tGet C:\\\\Users\\\\Administrator\\\\Desktop\\\\test.Sheet1 \n" +
+                "\t业务办理项编码 \n" +
+                "\tLIMIT \n" +
+                "\tEND \n" +
                 "}\n";
         Executer executer = new Executer();
         executer.execute(str);
