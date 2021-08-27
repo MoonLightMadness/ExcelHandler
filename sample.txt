@@ -18,7 +18,8 @@ syntax get_1{
 
 main{
 	Set C:\\Users\\Administrator\\Desktop\\source.4省市监厅
-	对接状态 = 验证xx通过
+	对接状态 = 验证xx通过,
+	生产环境是否配置 = 是
 	LIMIT
 	事项编码 = EXEC(get_1)
 	END

@@ -105,10 +105,10 @@ public class Executer {
 
     @Test
     public void setTest(){
-        String str = "\n" +
-                "main{\n" +
+        String str = "main{\n" +
                 "\tSet C:\\\\Users\\\\Administrator\\\\Desktop\\\\source.4省市监厅\n" +
-                "\t对接状态 = 验证xx通过\n" +
+                "\t对接状态 = 验证xx通过,\n" +
+                "\t生产环境是否配置 = 是\n" +
                 "\tLIMIT\n" +
                 "\t事项编码 = EXEC(get_1)\n" +
                 "\tEND\n" +
