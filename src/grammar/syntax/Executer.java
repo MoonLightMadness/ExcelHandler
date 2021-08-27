@@ -103,4 +103,17 @@ public class Executer {
         }
     }
 
+    @Test
+    public void setTest(){
+        String str = "main{\n" +
+                "\tSet C:\\\\Users\\\\Administrator\\\\Desktop\\\\source.4省市监厅\n" +
+                "\t对接状态 = 验证通过\n" +
+                "\tLIMIT\n" +
+                "\t生产环境是否配置 = 是\n" +
+                "\tEND\n" +
+                "}\n";
+        Executer executer = new Executer();
+        executer.execute(str);
+    }
+
 }
