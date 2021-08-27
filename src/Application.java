@@ -1,4 +1,6 @@
 import grammar.syntax.Executer;
+import log.LogSystem;
+import log.LogSystemFactory;
 import org.junit.Test;
 import org.yaml.snakeyaml.reader.StreamReader;
 import utils.SimpleUtils;
@@ -17,8 +19,13 @@ import java.util.Set;
  */
 public class Application {
 
+
+    private static LogSystem log = LogSystemFactory.getLogSystem();
+
     public static void main(String[] args) {
         String path = args[0];
+        //计时开始
+        long start = System.currentTimeMillis();
         File file = new File(path);
         if (!file.exists()) {
             System.out.println("文件不存在");
@@ -45,9 +52,12 @@ public class Application {
                     }
                 }
             }
+            log.info("环节结束，用时:"+(System.currentTimeMillis()-start)+"ms");
         } catch (FileNotFoundException e) {
+            log.error("未找到文件，原因：{}",e);
             e.printStackTrace();
         } catch (IOException e) {
+            log.error("指令执行失败，原因：{}",e);
             e.printStackTrace();
         }
     }
