@@ -4,6 +4,7 @@ import grammar.syntax.Analyser;
 import handler.Excel;
 import handler.HighOrderExcel;
 import org.apache.poi.ss.usermodel.Cell;
+import utils.SimpleUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -30,12 +31,14 @@ public class CommandParseUtil {
         Matcher matcher = limitPattern.matcher(commad);
         if (matcher.find()) {
             String temp = matcher.group(1).trim();
-            temp = temp.replaceAll("\\n", "");
-            for (String equition : temp.split(",")) {
-                String[] ss = equition.split("=");
-                limits.put(ss[0].trim(), ss[1].trim());
+            if(!SimpleUtils.isEmptyString(temp)){
+                temp = temp.replaceAll("\\n", "");
+                for (String equition : temp.split(",")) {
+                    String[] ss = equition.split("=");
+                    limits.put(ss[0].trim(), ss[1].trim());
+                }
+                return limits;
             }
-            return limits;
         }
         return null;
     }

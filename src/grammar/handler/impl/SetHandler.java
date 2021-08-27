@@ -45,10 +45,10 @@ public class SetHandler implements Handler {
         for (String property : properties) {
             changedPropertiesIndex.add(highOrderExcel.getTopRowNameIndex(getPropertyName(property)));
         }
-        for (String key : limits.keySet()) {
-            limitsIndex.add(highOrderExcel.getTopRowNameIndex(key));
-        }
         if (null != limits) {
+            for (String key : limits.keySet()) {
+                limitsIndex.add(highOrderExcel.getTopRowNameIndex(key));
+            }
             alllimit = getAllLimit();
         }
         search(alllimit,changedPropertiesIndex);
